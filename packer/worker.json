@@ -1,0 +1,41 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": ""
+    },
+    "description": "Treeherder celery worker, Ubuntu 12.04 x64",
+    "builders": [
+        {
+            "name": "treeherder_worker_ubuntu_1204",
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "us-west-2",
+            "source_ami": "ami-f18bd0c1",
+            "instance_type": "t2.micro",
+            "ssh_username": "ubuntu",
+            "ami_name": "treeherder_worker__ubuntu-12.04__{{isotime \"20060102\"}}",
+            "tags": {
+                "app": "treeherder",
+                "type": "worker",
+                "name": "treeherder-worker",
+                "os_version": "ubuntu",
+                "release": "12.04"
+                }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "bootstrap-ubuntu.sh",
+            "execute_command": "sudo -E sh '{{ .Path }}'",
+            "pause_before": "30s"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "keep_input_artifact": true
+        }
+    ]
+}
