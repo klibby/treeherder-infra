@@ -30,6 +30,16 @@
             "script": "bootstrap-ubuntu.sh",
             "execute_command": "sudo -E sh '{{ .Path }}'",
             "pause_before": "30s"
+        },
+        {
+            "type": "puppet-masterless",
+            "manifest_file": "puppet/manifests/default.pp",
+            "module_paths": [
+                "puppet/modules"
+            ],
+            "facter": {
+                "packer_profile": "worker"
+            }
         }
     ],
     "post-processors": [
