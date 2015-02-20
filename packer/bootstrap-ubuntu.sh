@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-function log {
+
+log() {
     # todo: log to file?
     STAMP=`date '+%F %T %z'`
     echo "${STAMP} BOOTSTRAP: ${@}"
@@ -17,6 +18,6 @@ log "apt-get upgrade"
 apt-get -y dist-upgrade
 
 log "apt-get install puppet"
-app-get -y install puppet
+apt-get -y install puppet
 
 log "end"
