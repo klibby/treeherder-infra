@@ -5,3 +5,4 @@ terraform.tfstate*
 *.swp
 *.plan
 *.log
+*.box
