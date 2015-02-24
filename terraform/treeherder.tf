@@ -36,7 +36,11 @@ resource "aws_elb" "web_elb" {
 resource "aws_instance" "admin" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
-    security_groups = []
+    key_name = "${var.key_name}"
+    count = "${var.web_nodes}"
+    security_groups = [
+        "${aws_security_group.any_to_admin__ssh.name}",
+    ]
 }
 
 resource "aws_instance" "rabbitmq" {
