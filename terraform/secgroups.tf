@@ -47,9 +47,9 @@ resource "aws_security_group" "nodes_to_elb__amqp" {
     }
 }
 
-resource "aws_security_group" "elb_to_rabbit__amqp" {
-    name = "${var.app}_${var.env}__elb_to_rabbit__amqp"
-    description = "Allow AMQP from ELBs to rabbit nodes."
+resource "aws_security_group" "elb_to_rabbitmq__amqp" {
+    name = "${var.app}_${var.env}__elb_to_rabbitmq__amqp"
+    description = "Allow AMQP from ELBs to rabbitmq nodes."
     vpc_id = "${var.aws_vpc_id}"
     ingress {
         from_port = 5672

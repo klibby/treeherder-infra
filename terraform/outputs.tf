@@ -3,7 +3,7 @@ output "public_addr__webhead__http" {
 }
 
 #output "public_addr__webhead__http" {
-#    value = "${aws_elb.rabbit_elb.dns_name}"
+#    value = "${aws_elb.rabbitmq_elb.dns_name}"
 #}
 #
 #output "public_addr__webhead__http" {
