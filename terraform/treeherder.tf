@@ -61,12 +61,20 @@ resource "aws_instance" "web" {
 resource "aws_instance" "etl" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
-    security_groups = []
+    key_name = "${var.key_name}"
+    count = "${var.web_nodes}"
+    security_groups = [
+        "${aws_security_group.admin_to_nodes__ssh.name}",
+    ]
 }
 
 resource "aws_instance" "log" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
-    security_groups = []
+    key_name = "${var.key_name}"
+    count = "${var.web_nodes}"
+    security_groups = [
+        "${aws_security_group.admin_to_nodes__ssh.name}",
+    ]
 }
 
