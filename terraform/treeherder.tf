@@ -46,7 +46,12 @@ resource "aws_instance" "admin" {
 resource "aws_instance" "rabbitmq" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
-    security_groups = []
+    key_name = "${var.key_name}"
+    count = "${var.web_nodes}"
+    security_groups = [
+        "${aws_security_group.elb_to_rabbit__amqp.name}",
+        "${aws_security_group.admin_to_nodes__ssh.name}",
+    ]
 }
 
 resource "aws_instance" "web" {
