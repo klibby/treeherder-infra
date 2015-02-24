@@ -17,6 +17,7 @@ variable "subnet_az" {
     description = "Default availability zone to use."
 }
 
+# NB: using non-default VPC will require changing instance security_groups from .name to .id
 variable "aws_vpc_id" {
     description = "ID of the VPC to use (not created by terraform)."
 }
