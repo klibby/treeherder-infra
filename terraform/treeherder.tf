@@ -1,9 +1,10 @@
 provider "aws" {
-    region = "${var.region}"
+    region = "${var.aws_region}"
     access_key = "${var.access_key}"
     secret_key = "${var.secret_key}"
 }
 
+# networking in network.tf
 # aws_security_groups in secgroups.tf
 
 resource "aws_elb" "web_elb" {

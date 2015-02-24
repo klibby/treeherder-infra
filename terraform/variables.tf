@@ -1,9 +1,39 @@
-variable "access_key" {}
-variable "secret_key" {}
-variable "environment" {}
 variable "app" {
     default = "treeherder"
     description = "Application name."
+}
+
+variable "env" {}
+variable "access_key" {}
+variable "secret_key" {}
+
+variable "aws_region" {
+    default = "us-west-2"
+    description = "Default AWS region to launch servers."
+}
+
+variable "subnet_az" {
+    default = "us-west-2a"
+    description = "Default availability zone to use."
+}
+
+variable "aws_vpc_id" {
+    description = "ID of the VPC to use (not created by terraform)."
+}
+
+variable "aws_igw_id" {
+    description = "Internet gateway ID of the VPC."
+}
+
+variable "subnet_cidr_block" {
+    description = "CIDR block to use for the application subnet."
+}
+
+variable "ami" {
+    default = {
+        us-west-2 = "ami-a1e2c491"
+    }
+    description = "customized Ubuntu Precise 12.04 LTS (x64)"
 }
 
 variable "key_name" {
@@ -12,18 +42,6 @@ variable "key_name" {
 
 variable "key_path" {
     description = "Path to the private portion of the SSH key specified."
-}
-
-variable "region" {
-    default = "us-west-2"
-    description = "AWS region to launch servers."
-}
-
-# Custom made Ubuntu Precise 12.04 LTS (x64)
-variable "ami" {
-    default = {
-        us-west-2 = "ami-a1e2c491"
-    }
 }
 
 variable "web_nodes" {
