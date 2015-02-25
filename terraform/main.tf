@@ -7,27 +7,27 @@ provider "aws" {
 # networking in network.tf
 # aws_security_groups in secgroups.tf
 
-#resource "aws_elb" "web_elb" {
-#    name = "{$var.app}_${var.env}_elb__http"
-#    listener {
-#        instance_port = 80
-#        instance_protocol = "http"
-#        lb_port = 80
-#        lb_protocol = "http"
-#    }
-#    /* Requires SSL
-#    listener {
-#        instance_port = 443
-#        instance_protocol = "https"
-#        lb_port = 443
-#        lb_protocol = "https"
-#        ssl_certificate_id = ""
-#    }
-#    */
-#    availability_zones = ["${aws_instance.web.*.availability_zone}"]
-#    instances = ["${aws_instance.web.*.id}"]
-#    security_groups = ["${aws_security_group.any_to_elb__http.id}"]
-#}
+resource "aws_elb" "web_elb" {
+    name = "{$var.app}_${var.env}_elb__http"
+    listener {
+        instance_port = 80
+        instance_protocol = "http"
+        lb_port = 80
+        lb_protocol = "http"
+    }
+    /* Requires SSL
+    listener {
+        instance_port = 443
+        instance_protocol = "https"
+        lb_port = 443
+        lb_protocol = "https"
+        ssl_certificate_id = ""
+    }
+    */
+    availability_zones = ["${aws_instance.web.*.availability_zone}"]
+    instances = ["${aws_instance.web.*.id}"]
+    security_groups = ["${aws_security_group.any_to_elb__http.id}"]
+}
 
 # ideally, SQS
 #resource "aws_elb" "rabbitmq_elb" {
@@ -85,26 +85,26 @@ resource "aws_instance" "admin" {
 #    }
 #}
 
-#resource "aws_instance" "web" {
-#    ami = "${lookup(var.ami, var.aws_region)}"
-#    instance_type = "t2.micro"
-#    subnet_id = "${aws_subnet.public_subnet.id}"
-#    key_name = "${var.key_name}"
-#    security_groups = [
-#        "${aws_security_group.elb_to_web__http.id}",
-#        "${aws_security_group.nodes_to_web__memcache.id}",
-#        "${aws_security_group.admin_to_web__http.id}",
-#        "${aws_security_group.admin_to_nodes__ssh.id}",
-#    ]
-#    tags {
-#        Name = "treeherder-web"
-#        App = "treeherder"
-#        Type = "web"
-#        Env = "test"
-#        Stack = "treeherder-aws-test"
-#        Owner = "fubar"
-#    }
-#}
+resource "aws_instance" "web" {
+    ami = "${lookup(var.ami, var.aws_region)}"
+    instance_type = "t2.micro"
+    subnet_id = "${aws_subnet.public_subnet.id}"
+    key_name = "${var.key_name}"
+    security_groups = [
+        "${aws_security_group.elb_to_web__http.id}",
+        "${aws_security_group.nodes_to_web__memcache.id}",
+        "${aws_security_group.admin_to_web__http.id}",
+        "${aws_security_group.admin_to_nodes__ssh.id}",
+    ]
+    tags {
+        Name = "treeherder-web"
+        App = "treeherder"
+        Type = "web"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
+}
 
 #resource "aws_instance" "etl" {
 #    ami = "${lookup(var.ami, var.aws_region)}"
