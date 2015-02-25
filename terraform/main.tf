@@ -72,8 +72,8 @@ resource "aws_instance" "admin" {
 #    subnet_id = "${aws_subnet.public_subnet.id}"
 #    key_name = "${var.key_name}"
 #    security_groups = [
-#        "${aws_security_group.elb_to_rabbitmq__amqp.name}",
-#        "${aws_security_group.admin_to_nodes__ssh.name}",
+#        "${aws_security_group.elb_to_rabbitmq__amqp.id}",
+#        "${aws_security_group.admin_to_nodes__ssh.id}",
 #    ]
 #    tags {
 #        Name = "treeherder-rabbitmq"
@@ -91,10 +91,10 @@ resource "aws_instance" "admin" {
 #    subnet_id = "${aws_subnet.public_subnet.id}"
 #    key_name = "${var.key_name}"
 #    security_groups = [
-#        "${aws_security_group.elb_to_web__http.name}",
-#        "${aws_security_group.nodes_to_web__memcache.name}",
-#        "${aws_security_group.admin_to_web__http.name}",
-#        "${aws_security_group.admin_to_nodes__ssh.name}",
+#        "${aws_security_group.elb_to_web__http.id}",
+#        "${aws_security_group.nodes_to_web__memcache.id}",
+#        "${aws_security_group.admin_to_web__http.id}",
+#        "${aws_security_group.admin_to_nodes__ssh.id}",
 #    ]
 #    tags {
 #        Name = "treeherder-web"
@@ -112,7 +112,7 @@ resource "aws_instance" "admin" {
 #    subnet_id = "${aws_subnet.public_subnet.id}"
 #    key_name = "${var.key_name}"
 #    security_groups = [
-#        "${aws_security_group.admin_to_nodes__ssh.name}",
+#        "${aws_security_group.admin_to_nodes__ssh.id}",
 #    ]
 #    tags {
 #        Name = "treeherder-etl"
@@ -130,7 +130,7 @@ resource "aws_instance" "admin" {
 #    subnet_id = "${aws_subnet.public_subnet.id}"
 #    key_name = "${var.key_name}"
 #    security_groups = [
-#        "${aws_security_group.admin_to_nodes__ssh.name}",
+#        "${aws_security_group.admin_to_nodes__ssh.id}",
 #    ]
 #    tags {
 #        Name = "treeherder-processor"
