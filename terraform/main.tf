@@ -53,7 +53,6 @@ resource "aws_instance" "admin" {
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
-    count = "${var.web_nodes}"
     security_groups = [
         "${aws_security_group.any_to_admin__ssh.name}",
     ]
@@ -64,7 +63,6 @@ resource "aws_instance" "rabbitmq" {
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
-    count = "${var.web_nodes}"
     security_groups = [
         "${aws_security_group.elb_to_rabbitmq__amqp.name}",
         "${aws_security_group.admin_to_nodes__ssh.name}",
@@ -76,7 +74,6 @@ resource "aws_instance" "web" {
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
-    count = "${var.web_nodes}"
     security_groups = [
         "${aws_security_group.elb_to_web__http.name}",
         "${aws_security_group.nodes_to_web__memcache.name}",
@@ -90,18 +87,16 @@ resource "aws_instance" "etl" {
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
-    count = "${var.web_nodes}"
     security_groups = [
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
 }
 
-resource "aws_instance" "log" {
+resource "aws_instance" "processor" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
-    count = "${var.web_nodes}"
     security_groups = [
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
