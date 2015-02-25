@@ -32,7 +32,7 @@ variable "subnet_cidr_block" {
 
 variable "ami" {
     default = {
-        us-west-2 = "ami-a1e2c491"
+        us-west-2 = "ami-d9c1e0e9"
     }
     description = "customized Ubuntu Precise 12.04 LTS (x64)"
 }
