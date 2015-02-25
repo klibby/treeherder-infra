@@ -24,8 +24,8 @@ resource "aws_elb" "web_elb" {
         ssl_certificate_id = ""
     }
     */
-#    subnets = ["${aws_subnet.public_subnet.id}"]
-    availability_zones = ["${aws_instance.web.availability_zone}"]
+    subnets = ["${aws_subnet.public_subnet.id}"]
+#    availability_zones = ["${aws_instance.web.availability_zone}"]
     instances = ["${aws_instance.web.id}"]
     security_groups = ["${aws_security_group.any_to_elb__http.id}"]
 }
