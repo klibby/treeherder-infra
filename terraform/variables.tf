@@ -45,26 +45,6 @@ variable "key_path" {
     description = "Path to the private portion of the SSH key specified."
 }
 
-variable "web_nodes" {
-    default = "1"
-    description = "The number of web worker nodes to launch."
-}
-
-variable "log_nodes" {
-    default = "1"
-    description = "The number of log worker nodes to launch."
-}
-
-variable "rabbitmq_nodes" {
-    default = "1"
-    description = "The number of rabbitmq worker nodes to launch."
-}
-
-variable "etl_nodes" {
-    default = "1"
-    description = "The number of etl worker nodes to launch."
-}
-
 variable "del_on_term" {
     default = "false"
 }
