@@ -8,7 +8,7 @@ provider "aws" {
 # aws_security_groups in secgroups.tf
 
 resource "aws_elb" "web_elb" {
-    name = "${var.app}-${var.env}-elb--http"
+    name = "${var.app}-${var.env}-web"
     listener {
         instance_port = 80
         instance_protocol = "http"
@@ -31,7 +31,7 @@ resource "aws_elb" "web_elb" {
 
 # ideally, SQS
 #resource "aws_elb" "rabbitmq_elb" {
-#    name = "${var.app}_${var.env}_elb__amqp"
+#    name = "${var.app}-${var.env}-amqp"
 #    listener {
 #        instance_port = 5672
 #        instance_protocol = "amqp"
