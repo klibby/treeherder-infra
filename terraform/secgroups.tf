@@ -115,15 +115,15 @@ resource "aws_security_group" "any_to_admin__ssh" {
 #    vpc_id = "${var.aws_vpc_id}"
 #}
 
-#resource "aws_security_group" "admin_to_nodes__ssh" {
-#    name = "${var.app}_${var.env}_sg__admin_to_nodes__ssh"
-#    description = "Allow incoming traffic from admin node to SSH on web nodes."
-#    vpc_id = "${var.aws_vpc_id}"
-#    ingress {
-#        protocol = "tcp"
-#        from_port = 22
-#        to_port = 22
-#        security_groups = ["${aws_security_group.any_to_admin__ssh.id}"]
-#    }
-#}
+resource "aws_security_group" "admin_to_nodes__ssh" {
+    name = "${var.app}_${var.env}_sg__admin_to_nodes__ssh"
+    description = "Allow incoming traffic from admin node to SSH on web nodes."
+    vpc_id = "${var.aws_vpc_id}"
+    ingress {
+        protocol = "tcp"
+        from_port = 22
+        to_port = 22
+        security_groups = ["${aws_security_group.any_to_admin__ssh.id}"]
+    }
+}
 

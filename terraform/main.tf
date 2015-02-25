@@ -124,21 +124,21 @@ resource "aws_instance" "admin" {
 #    }
 #}
 
-#resource "aws_instance" "processor" {
-#    ami = "${lookup(var.ami, var.aws_region)}"
-#    instance_type = "t2.micro"
-#    subnet_id = "${aws_subnet.public_subnet.id}"
-#    key_name = "${var.key_name}"
-#    security_groups = [
-#        "${aws_security_group.admin_to_nodes__ssh.id}",
-#    ]
-#    tags {
-#        Name = "treeherder-processor"
-#        App = "treeherder"
-#        Type = "processor"
-#        Env = "test"
-#        Stack = "treeherder-aws-test"
-#        Owner = "fubar"
-#    }
-#}
+resource "aws_instance" "processor" {
+    ami = "${lookup(var.ami, var.aws_region)}"
+    instance_type = "t2.micro"
+    subnet_id = "${aws_subnet.public_subnet.id}"
+    key_name = "${var.key_name}"
+    security_groups = [
+        "${aws_security_group.admin_to_nodes__ssh.id}",
+    ]
+    tags {
+        Name = "treeherder-processor"
+        App = "treeherder"
+        Type = "processor"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
+}
 
