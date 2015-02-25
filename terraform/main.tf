@@ -56,6 +56,14 @@ resource "aws_instance" "admin" {
     security_groups = [
         "${aws_security_group.any_to_admin__ssh.name}",
     ]
+    tags {
+        Name = "treeherder-admin"
+        App = "treeherder"
+        Type = "admin"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
 }
 
 resource "aws_instance" "rabbitmq" {
@@ -67,6 +75,14 @@ resource "aws_instance" "rabbitmq" {
         "${aws_security_group.elb_to_rabbitmq__amqp.name}",
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
+    tags {
+        Name = "treeherder-rabbitmq"
+        App = "treeherder"
+        Type = "rabbitmq"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
 }
 
 resource "aws_instance" "web" {
@@ -80,6 +96,14 @@ resource "aws_instance" "web" {
         "${aws_security_group.admin_to_web__http.name}",
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
+    tags {
+        Name = "treeherder-web"
+        App = "treeherder"
+        Type = "web"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
 }
 
 resource "aws_instance" "etl" {
@@ -90,6 +114,14 @@ resource "aws_instance" "etl" {
     security_groups = [
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
+    tags {
+        Name = "treeherder-etl"
+        App = "treeherder"
+        Type = "etl"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
 }
 
 resource "aws_instance" "processor" {
@@ -100,5 +132,13 @@ resource "aws_instance" "processor" {
     security_groups = [
         "${aws_security_group.admin_to_nodes__ssh.name}",
     ]
+    tags {
+        Name = "treeherder-processor"
+        App = "treeherder"
+        Type = "processor"
+        Env = "test"
+        Stack = "treeherder-aws-test"
+        Owner = "fubar"
+    }
 }
 
