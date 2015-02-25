@@ -51,10 +51,10 @@ provider "aws" {
 resource "aws_instance" "admin" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
-    subnet_id = "${aws_subnet.public_subnet.id}"
     key_name = "${var.key_name}"
+    subnet_id = "${aws_subnet.public_subnet.id}"
     security_groups = [
-        "${aws_security_group.any_to_admin__ssh.name}",
+        "${aws_security_group.any_to_admin__ssh.id}",
     ]
     tags {
         Name = "treeherder-admin"
