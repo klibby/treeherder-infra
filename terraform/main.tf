@@ -8,7 +8,7 @@ provider "aws" {
 # aws_security_groups in secgroups.tf
 
 resource "aws_elb" "web_elb" {
-    name = "{$var.app}_${var.env}_elb__http"
+    name = "${var.app}_${var.env}_elb__http"
     listener {
         instance_port = 80
         instance_protocol = "http"
