@@ -1,5 +1,3 @@
-variable "foo" {}
-
 variable "app" {
     default = "treeherder"
     description = "Application name."
