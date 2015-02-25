@@ -8,7 +8,7 @@ provider "aws" {
 # aws_security_groups in secgroups.tf
 
 resource "aws_elb" "web_elb" {
-    name = "treeherder-web-elb"
+    name = "{$var.app}_${var.env}_elb__http"
     listener {
         instance_port = 80
         instance_protocol = "http"
@@ -31,12 +31,12 @@ resource "aws_elb" "web_elb" {
 
 # ideally, SQS
 resource "aws_elb" "rabbitmq_elb" {
-    name = "treeherder-rabbitmq-elb"
+    name = "${var.app}_${var.env}_elb__amqp"
     listener {
         instance_port = 5672
-        instance_protocol = "http"
+        instance_protocol = "amqp"
         lb_port = 5672
-        lb_protocol = "http"
+        lb_protocol = "amqp"
     }
     internal = true
     availability_zones = ["${aws_instance.rabbitmq.*.availability_zone}"]
