@@ -13,6 +13,7 @@
             "region": "us-west-2",
             "source_ami": "ami-f78bd0c7",
             "instance_type": "t2.micro",
+            "iam_instance_profile": "ec2-read-tags",
             "ssh_username": "ubuntu",
             "ami_name": "treeherder_worker__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
             "tags": {

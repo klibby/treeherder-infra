@@ -53,6 +53,7 @@ resource "aws_elb" "web_elb" {
 resource "aws_instance" "admin" {
     ami = "${lookup(var.ami, var.aws_region)}"
     instance_type = "t2.micro"
+    iam_instance_profile = "ec2-read-tags"
     key_name = "${var.key_name}"
     subnet_id = "${aws_subnet.public_subnet.id}"
     security_groups = [
