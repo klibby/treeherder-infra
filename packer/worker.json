@@ -17,9 +17,10 @@
             "ssh_username": "ubuntu",
             "ami_name": "treeherder_worker__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
             "tags": {
+                "name": "treeherder-packer",
                 "app": "treeherder",
-                "env": "test",
-                "name": "treeherder-node",
+                "type": "packer",
+                "env": "build",
                 "os_version": "ubuntu",
                 "release": "12.04"
                 }
