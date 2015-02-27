@@ -12,10 +12,16 @@
             "secret_key": "{{user `aws_secret_key`}}",
             "region": "us-west-2",
             "source_ami": "ami-f78bd0c7",
-            "instance_type": "t2.micro",
+            "instance_type": "t2.medium",
             "iam_instance_profile": "ec2-read-tags",
             "ssh_username": "ubuntu",
             "ami_name": "treeherder_worker__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
+            "run_tags": {
+                "name": "treeherder-packer",
+                "app": "treeherder",
+                "env": "build",
+                "type": "packer"
+            },
             "tags": {
                 "name": "treeherder-packer",
                 "app": "treeherder",
@@ -23,15 +29,29 @@
                 "env": "build",
                 "os_version": "ubuntu",
                 "release": "12.04"
-                }
+            }
         }
     ],
     "provisioners": [
         {
             "type": "shell",
-            "script": "bootstrap-ubuntu.sh",
+            "script": "scripts/bootstrap-ubuntu.sh",
             "execute_command": "sudo -E sh '{{ .Path }}'",
             "pause_before": "30s"
+        },
+        {
+            "type": "file",
+            "source": "puppet/Puppetfile",
+            "destination": "/tmp/Puppetfile"
+        },
+        {
+            "type": "file",
+            "source": "scripts/ec2tags.rb",
+            "destination": "/usr/local/lib/site_ruby/facter/ec2tags.rb"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/librarian-puppet.sh"
         },
         {
             "type": "puppet-masterless",

@@ -1,0 +1,14 @@
+forge "https://forgeapi.puppetlabs.com"
+
+moduledir '/tmp/packer-puppet-masterless/module-0'
+
+# replaced with ec2tags.rb
+# req: facter>=1.73, ruby/rubygems
+#mod 'puppet-aws',
+#    :git => "https://github.com/metcalfc/puppet-aws"
+
+# mod 'localmod',
+#   :path => './puppet/mod'
+# mod 'treeherder',
+#   :git => "https://github.com/mozilla/treeherder-service.git",
+#   :path => "puppet"

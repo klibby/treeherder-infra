@@ -3,6 +3,10 @@ Exec {
 }
 
 node default {
+  
+    if $ec2_tag_type == 'packer' {
+        notify { "has the role packer": }
+    }
     
     include treeherder::base
 
