@@ -35,7 +35,7 @@
         },
         {
             "type": "file",
-            "source": "puppet/Puppetfile",
+            "source": "Puppetfile",
             "destination": "/tmp/Puppetfile"
         },
         {
