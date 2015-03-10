@@ -16,12 +16,6 @@
             "iam_instance_profile": "ec2-read-tags",
             "ssh_username": "ubuntu",
             "ami_name": "treeherder_worker__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
-            "run_tags": {
-                "name": "treeherder-packer",
-                "app": "treeherder",
-                "env": "build",
-                "type": "packer"
-            },
             "tags": {
                 "name": "treeherder-image",
                 "app": "treeherder",

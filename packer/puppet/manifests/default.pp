@@ -4,14 +4,14 @@ Exec {
 
 node default {
   
+    # packer run_tags or ec2 instance tags
     if $ec2_tag_type == 'packer' {
         notify { "has the role packer": }
     }
     
     include treeherder::base
 
-    # packer_profile fact is build (e.g. ami) specific rather than
-    # app specific (i.e. etl vs log processor, both of which are workers)
+    # packer puppet-masterless facter var(s)
     case $::packer_profile {
         'worker': {
             include treeherder::worker
