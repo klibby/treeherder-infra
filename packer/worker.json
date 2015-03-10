@@ -54,7 +54,7 @@
                 "../puppet/modules"
             ],
             "facter": {
-                "packer_profile": "worker"
+                "packer_profile": "builder"
             }
         }
     ],

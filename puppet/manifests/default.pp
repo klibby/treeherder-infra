@@ -9,20 +9,11 @@ node default {
         notify { "has the role packer": }
     }
     
-    include treeherder::base
-
     # packer puppet-masterless facter var(s)
     case $::packer_profile {
-        'worker': {
-            include treeherder::worker
-        }
-
-        'webhead': {
-            include treeherder::webhead
-        }
-
-        'rabbit': {
-            include treeherder::rabbit
+        'builder': {
+            include treeherder::packages
+            # ensure services off by default, too
         }
 
         default: {
