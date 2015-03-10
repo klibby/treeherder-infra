@@ -23,9 +23,9 @@
                 "type": "packer"
             },
             "tags": {
-                "name": "treeherder-packer",
+                "name": "treeherder-image",
                 "app": "treeherder",
-                "type": "packer",
+                "type": "image",
                 "env": "build",
                 "os_version": "ubuntu",
                 "release": "12.04"
