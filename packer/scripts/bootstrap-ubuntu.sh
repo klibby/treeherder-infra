@@ -61,11 +61,11 @@ apt-get install -y make >/dev/null
 echo "Installing python-pip..."
 apt-get install -y python-pip >/dev/null
 
-echo "Updating pip..."
-pip install -U pip >/dev/null
-
 echo "installing awscli..."
 pip install awscli >/dev/null
+
+echo "Updating pip..."
+pip install -U pip >/dev/null
 
 if [ "$(gem list -i '^facter$')" = "false" ]; then
     echo "installing the 'facter' gem"
