@@ -12,7 +12,7 @@ node default {
     # packer puppet-masterless facter var(s)
     case $::packer_profile {
         'builder': {
-            include treeherder::packages
+            include treeherder::install
             # ensure services off by default, too
         }
 
