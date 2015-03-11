@@ -20,12 +20,6 @@ class treeherder::packages {
   }
 
   package {
-    'pip':
-      ensure   => '6.0.8',
-      provider => 'pip'
-  }
-
-  package {
     'peep':
       ensure   => '2.2',
       provider => 'pip'
