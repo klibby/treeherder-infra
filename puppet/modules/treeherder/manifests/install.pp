@@ -58,11 +58,28 @@ class treeherder::install {
       require => [ Package['git'], File['/data'] ];
   }
 
+  # to be combined into one file for peep
   exec {
-    'install_peep_requirements':
+    'install_compiled_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command => 'pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt',
-      onlyif  => 'test -d /data/treeherder-service/requirements',
+      command => 'pip install -r /data/treeherder-service/requirements/compiled.txt',
+      onlyif  => 'test -d /data/treeherder-service/requirements/compiled.txt',
+      require => Exec['checkout_treeherder_service'];
+  }
+
+  exec {
+    'install_pure_requirements':
+      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      command => 'pip install -r /data/treeherder-service/requirements/pure.txt',
+      onlyif  => 'test -d /data/treeherder-service/requirements/pure.txt',
+      require => Exec['checkout_treeherder_service'];
+  }
+
+  exec {
+    'install_prod_requirements':
+      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      command => 'pip install -r /data/treeherder-service/requirements/prod.txt',
+      onlyif  => 'test -d /data/treeherder-service/requirements/prod.txt',
       require => Exec['checkout_treeherder_service'];
   }
 
