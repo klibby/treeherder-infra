@@ -1,16 +1,69 @@
 class treeherder::install {
   # packer does install from ../puppet/modules/treeherder
-  # r10k adds puppet module to /etc/puppet
+  # r10k adds puppet modules to /etc/puppet
   # terraform enables services via puppet apply on boot (or remote-exec)
 
-  include treeherder::packages
-
-  # setup directories, etc..
-  file {
-    [
-     '/data',
-     '/data/www',
-    ]:
-      ensure => directory;
+  user {
+    'treeherder':
+      ensure => present,
+      home   => '/data';
   }
+
+  package {
+    [
+      'git',
+      'python2.7',
+      'python2.7-dev',
+      'libpython2.7',
+      'python-setuptools',
+      'mysql-client',
+      'mysql-common',
+      'make',
+      'apache2',
+      'rabbitmq-server',
+    ]:
+      ensure => present;
+  }
+
+  package {
+    'peep':
+      ensure   => '2.2',
+      provider => 'pip'
+  }
+
+  file {
+    '/data':
+      ensure   => directory,
+      owner    => 'treeherder',
+      group    => 'treeherder'
+      mode     => '0755'
+      requires => User['treeherder'];
+  }
+
+  exec {
+    'checkout_treeherder_service':
+      command  => 'git clone https://github.com/mozilla/treeherder-service',
+      cwd      => '/data',
+      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      unless   => 'test -f /data/treeherder-service/.git/index',
+      requires => [ Package['git'], File['/data'] ];
+  }
+
+  exec {
+    'checkout_treeherder_ui':
+      command => 'git clone https://github.com/mozilla/treeherder-ui',
+      cwd     => '/data',
+      path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      unless  => 'test -f /data/treeherder-ui/.git/index',
+      requires => [ Package['git'], File['/data'] ];
+  }
+
+  exec {
+    'install_peep_requirements':
+      path     => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      command  => "pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt",
+      onlyif   => "test -d /data/treeherder-service/requirements",
+      requires => Exec['checkout_treeherder_service'];
+  }
+
 }
