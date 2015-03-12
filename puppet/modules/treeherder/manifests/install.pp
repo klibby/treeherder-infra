@@ -60,29 +60,38 @@ class treeherder::install {
       require => [ Package['git'], File['/data'] ];
   }
 
-  # to be combined into one file for peep
-  exec {
-    'install_compiled_requirements':
-      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command => 'pip install -r /data/treeherder-service/requirements/compiled.txt',
-      onlyif  => 'test -f /data/treeherder-service/requirements/compiled.txt',
-      require => Exec['checkout_treeherder_service'];
+  # I think this will eventually be wrapped up into one file in the -service repo
+  # current as of bfb7f690b708b9474b365332c6a06fcbaaee479c
+  file {
+    '/data/peep-checkedin.txt':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/files/peep-checkedin.txt";
+    '/data/peep-common.txt':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/files/peep-common.txt";
+    '/data/peep-prod.txt':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/files/peep-prod.txt";
   }
 
   exec {
-    'install_pure_requirements':
+    'install_checkedin_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command => 'pip install -r /data/treeherder-service/requirements/pure.txt',
-      onlyif  => 'test -f /data/treeherder-service/requirements/pure.txt',
-      require => Exec['checkout_treeherder_service'];
-  }
+      command => 'peep install -r /data/peep-checkedin.txt',
+      onlyif  => 'test -f /data/peep-checkedin.txt',
+      require => [ File['/data/peep-checkedin.txt'], Package['peep'] ];
 
-  exec {
+    'install_common_requirements':
+      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      command => 'peep install -r /data/peep-common.txt',
+      onlyif  => 'test -f /data/peep-common.txt',
+      require => [ File['/data/peep-common.txt'], Package['peep'] ];
+
     'install_prod_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command => 'pip install -r /data/treeherder-service/requirements/prod.txt',
-      onlyif  => 'test -f /data/treeherder-service/requirements/prod.txt',
-      require => Exec['checkout_treeherder_service'];
+      command => 'peep install -r /data/peep-prod.txt',
+      onlyif  => 'test -f /data/peep-prod.txt',
+      require => [ File['/data/peep-prod.txt'], Package['peep'] ];
   }
 
 }

@@ -1,0 +1,51 @@
+# sha256: yMvuXERhj0nnt8b5RabHSI5ah2V8oZp6a7Lm_ea6Dmg
+gunicorn==17.5
+
+# sha256: QgAgZcyYvJm1uuAITdsToK1hGhcdza9bqWcxk12nRKQ
+Django==1.7.4
+
+# sha256: 6ESYN2-wUkFQQGlrefsPGF48cycpZwEJtPHiMDvmyfU
+celery==3.1.16
+
+# sha256: sZX6jrUgwymU2LvRY3AA3j0JZTKy5FGDgy28tlwhHo4
+kombu==3.0.23
+
+# sha256: eopr2C4RGXausGE4MWqxCEet9hKSUHLq_4USIovPmh8
+simplejson==3.3.0
+
+# sha256: xbVbC9QOI6nLzSwb3v6XcfxYNpOKzvdyeVgTpvZDLEg
+Cython==0.19.2
+
+# sha256: v6nYRtuRp9i2o26HNT7tZBx-Pn0L-guZdXltIn8ttOs
+gevent==1.0
+
+# sha256: 3kZ6F0_BamhBlMUri3Tmfcy06re3kuQ7Yf0J8TTWnmA
+https://github.com/abourget/gevent-socketio/archive/0f9bd2744af033b7cba57bfd5b82106592e9f667.zip#egg=gevent-socketio#egg=gevent-socketio
+
+# sha256: yB0HQLMMZ2Y7QokYPP_55K6Bix6zvOD8l-7IprABShw
+gevent-websocket==0.9
+
+# sha256: 6mcVkvhGBUEoaxM-1Gps9TEaa3UFHMMbU-K8OJkrd1o
+greenlet==0.4.1
+
+# sha256: gRBAtkfl1WhvhNtBXv1pfmJQAIsRK2kJunesBZ4UDHQ
+MySQL-python==1.2.5
+
+# sha256: bmuOxuRbiTiQUXN8fmIV2OVag4lutiEvpybKdugMehk
+billiard==3.3.0.19
+
+# sha256: VDjXSekjyRR0H-KkELUoq-JwUwAPv4eLxDdCjQiuCrE
+pytz==2014.10
+
+# sha256: 406XZaYSD0ZkwSD0GYp4bDmg-35KWb0ZotbjqIS2OIk
+amqp==1.4.6
+
+# sha256: N4Ethjya0-NcBzTELgvwMgzow77YLNIK1UyzTRWBV7o
+anyjson==0.3.3
+
+# sha256: hD1ptoGmCv0h-_UPMQQE7Gf8350T389unUHztFYhfls
+amqplib==1.0.2
+
+# sha256: 7cVxMGHxCWYEi_a0DZpRSzgeC6hJxk4DTE72wYR9MAc
+blessings==1.6
+
