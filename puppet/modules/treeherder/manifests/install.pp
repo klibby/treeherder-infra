@@ -35,8 +35,8 @@ class treeherder::install {
     '/data':
       ensure   => directory,
       owner    => 'treeherder',
-      group    => 'treeherder'
-      mode     => '0755'
+      group    => 'treeherder',
+      mode     => '0755',
       requires => User['treeherder'];
   }
 
@@ -61,8 +61,8 @@ class treeherder::install {
   exec {
     'install_peep_requirements':
       path     => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command  => "pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt",
-      onlyif   => "test -d /data/treeherder-service/requirements",
+      command  => 'pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt',
+      onlyif   => 'test -d /data/treeherder-service/requirements',
       requires => Exec['checkout_treeherder_service'];
   }
 
