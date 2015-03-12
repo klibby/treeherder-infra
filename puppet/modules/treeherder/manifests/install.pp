@@ -33,20 +33,20 @@ class treeherder::install {
 
   file {
     '/data':
-      ensure   => directory,
-      owner    => 'treeherder',
-      group    => 'treeherder',
-      mode     => '0755',
-      requires => User['treeherder'];
+      ensure  => directory,
+      owner   => 'treeherder',
+      group   => 'treeherder',
+      mode    => '0755',
+      require => User['treeherder'];
   }
 
   exec {
     'checkout_treeherder_service':
-      command  => 'git clone https://github.com/mozilla/treeherder-service',
-      cwd      => '/data',
+      command => 'git clone https://github.com/mozilla/treeherder-service',
+      cwd     => '/data',
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      unless   => 'test -f /data/treeherder-service/.git/index',
-      requires => [ Package['git'], File['/data'] ];
+      unless  => 'test -f /data/treeherder-service/.git/index',
+      require => [ Package['git'], File['/data'] ];
   }
 
   exec {
@@ -55,15 +55,15 @@ class treeherder::install {
       cwd     => '/data',
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       unless  => 'test -f /data/treeherder-ui/.git/index',
-      requires => [ Package['git'], File['/data'] ];
+      require => [ Package['git'], File['/data'] ];
   }
 
   exec {
     'install_peep_requirements':
-      path     => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
-      command  => 'pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt',
-      onlyif   => 'test -d /data/treeherder-service/requirements',
-      requires => Exec['checkout_treeherder_service'];
+      path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
+      command => 'pip install -r /data/treeherder-service/requirements/{compiled,pure,prod}.txt',
+      onlyif  => 'test -d /data/treeherder-service/requirements',
+      require => Exec['checkout_treeherder_service'];
   }
 
 }
