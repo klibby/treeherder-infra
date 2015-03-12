@@ -6,4 +6,11 @@ class treeherder::install {
   include treeherder::packages
 
   # setup directories, etc..
+  file {
+    [
+     '/data',
+     '/data/www',
+    ]:
+      ensure => directory;
+  }
 }
