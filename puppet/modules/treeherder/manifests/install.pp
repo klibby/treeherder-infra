@@ -63,7 +63,7 @@ class treeherder::install {
     'install_compiled_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
       command => 'pip install -r /data/treeherder-service/requirements/compiled.txt',
-      onlyif  => 'test -d /data/treeherder-service/requirements/compiled.txt',
+      onlyif  => 'test -f /data/treeherder-service/requirements/compiled.txt',
       require => Exec['checkout_treeherder_service'];
   }
 
@@ -71,7 +71,7 @@ class treeherder::install {
     'install_pure_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
       command => 'pip install -r /data/treeherder-service/requirements/pure.txt',
-      onlyif  => 'test -d /data/treeherder-service/requirements/pure.txt',
+      onlyif  => 'test -f /data/treeherder-service/requirements/pure.txt',
       require => Exec['checkout_treeherder_service'];
   }
 
@@ -79,7 +79,7 @@ class treeherder::install {
     'install_prod_requirements':
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
       command => 'pip install -r /data/treeherder-service/requirements/prod.txt',
-      onlyif  => 'test -d /data/treeherder-service/requirements/prod.txt',
+      onlyif  => 'test -f /data/treeherder-service/requirements/prod.txt',
       require => Exec['checkout_treeherder_service'];
   }
 
