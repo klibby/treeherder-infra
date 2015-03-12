@@ -45,7 +45,8 @@
         },
         {
             "type": "shell",
-            "script": "scripts/librarian-puppet.sh"
+            "script": "scripts/puppet-modules.sh",
+            "execute_command": "sudo -E sh '{{ .Path }}'"
         },
         {
             "type": "puppet-masterless",
