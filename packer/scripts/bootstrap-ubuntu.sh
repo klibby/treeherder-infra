@@ -82,10 +82,10 @@ if [ "$(gem list -i '^aws-sdk$')" = "false" ]; then
     gem install --no-ri --no-rdoc aws-sdk >/dev/null
 fi
 
-if [ "$(gem list -i '^r10k$')" = "false" ]; then
-    echo "installing the 'r10k' gem"
-    gem install --no-ri --no-rdoc r10k >/dev/null
-fi
+#if [ "$(gem list -i '^r10k$')" = "false" ]; then
+#    echo "installing the 'r10k' gem"
+#    gem install --no-ri --no-rdoc r10k >/dev/null
+#fi
 
 if [ "$(gem list -i '^librarian-puppet$')" = "false" ]; then
     echo "installing the 'librarian-puppet' gem"
