@@ -1,6 +1,6 @@
 class treeherder::install {
   # packer does install from ../puppet/modules/treeherder
-  # r10k adds puppet modules to /etc/puppet
+  # librarian-puppet adds puppet modules to /etc/puppet
   # terraform enables services via puppet apply on boot (or remote-exec)
 
   user {
@@ -23,6 +23,7 @@ class treeherder::install {
       'make',
       'apache2',
       'rabbitmq-server',
+      'supervisor'
     ]:
       ensure => present;
   }
@@ -34,12 +35,29 @@ class treeherder::install {
   }
 
   file {
-    '/data':
+    [
+      '/data',
+      '/var/log/celery',
+      '/var/log/gunicorn',
+    ]:
       ensure  => directory,
       owner   => 'treeherder',
       group   => 'treeherder',
       mode    => '0755',
       require => User['treeherder'];
+  }
+
+  #file { 
+  #  '/etc/profile.d/treeherder.sh':
+  #    ensure  => present,
+  #    content => template("${module_name/profile.sh.erb");
+  #}
+
+  file {
+    '/etc/logrotate.d':
+      ensure       => directory,
+      recurse      => remote,
+      source       => "puppet:///modules/${module_name}/logrotate.d/";
   }
 
   exec {
