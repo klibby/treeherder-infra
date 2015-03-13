@@ -65,13 +65,13 @@ class treeherder::install {
   file {
     '/data/peep-checkedin.txt':
       ensure => present,
-      source => "puppet:///modules/${module_name}/files/peep-checkedin.txt";
+      source => "puppet:///modules/${module_name}/peep-checkedin.txt";
     '/data/peep-common.txt':
       ensure => present,
-      source => "puppet:///modules/${module_name}/files/peep-common.txt";
+      source => "puppet:///modules/${module_name}/peep-common.txt";
     '/data/peep-prod.txt':
       ensure => present,
-      source => "puppet:///modules/${module_name}/files/peep-prod.txt";
+      source => "puppet:///modules/${module_name}/peep-prod.txt";
   }
 
   exec {

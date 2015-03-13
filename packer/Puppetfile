@@ -6,7 +6,7 @@ mod 'fsalum/newrelic'
 mod 'puppetlabs/rabbitmq'
 mod 'ajcrowe/supervisord'
 
-mod 'treeherder',
+mod 'mozilla/treeherder',
     :git => "https://github.com/klibby/treeherder-infra.git",
     :ref => 'buildtest',
     :path => "puppet/modules"
