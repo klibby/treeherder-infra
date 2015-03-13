@@ -23,7 +23,7 @@ class treeherder::install {
       'make',
       'apache2',
       'rabbitmq-server',
-      'supervisor'
+      'supervisor',
     ]:
       ensure => present;
   }
@@ -32,6 +32,19 @@ class treeherder::install {
     'peep':
       ensure   => '2.2',
       provider => 'pip'
+  }
+
+  # hack; ubuntu insists on starting a service upon installation, configuring it be damned
+  service { 
+    'apache2':
+      ensure  => 'stopped',
+      enable  => false,
+      require => Package['apache2'];
+
+    'rabbitmq-server':
+      ensure  => 'stopped',
+      enable  => false,
+      require => Package['rabbitmq-server'];
   }
 
   file {
@@ -55,9 +68,12 @@ class treeherder::install {
 
   file {
     '/etc/logrotate.d':
-      ensure       => directory,
-      recurse      => remote,
-      source       => "puppet:///modules/${module_name}/logrotate.d/";
+      ensure  => directory,
+      recurse => remote,
+      source  => "puppet:///modules/${module_name}/logrotate.d/",
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644';
   }
 
   exec {
