@@ -1,0 +1,11 @@
+/var/log/gunicorn/*.log {
+    daily
+    copytruncate
+    rotate 90
+    missingok
+    notifempty
+    delaycompress
+    postrotate
+        kill -USR1 $(cat /var/run/gunicorn.pid) > /dev/null 2>/dev/null || true
+    endscript
+}
