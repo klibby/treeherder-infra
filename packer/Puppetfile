@@ -1,16 +1,15 @@
 forge "https://forgeapi.puppetlabs.com"
 
-#moduledir '/tmp/packer-puppet-masterless/module-0'
+mod 'puppetlabs/apache'
+mod 'puppetlabs/mysql'
+mod 'fsalum/newrelic'
+mod 'puppetlabs/rabbitmq'
+mod 'ajcrowe/supervisord'
 
-mod 'puppetlabs/apache', :latest
-mod 'puppetlabs/mysql', :latest
-mod 'fsalum/newrelic', :latest
-mod 'puppetlabs/rabbitmq', :latest
-mod 'ajcrowe/supervisord', :latest
-
-#mod 'treeherder',
-#    :git => "https://github.com/klibby/treeherder-infra/puppet",
-#    :branch => 'buildtest'
+mod 'treeherder',
+    :git => "https://github.com/klibby/treeherder-infra.git",
+    :ref => 'buildtest',
+    :path => "puppet/modules"
 
 # flower/nginx
 # vcsrepo?

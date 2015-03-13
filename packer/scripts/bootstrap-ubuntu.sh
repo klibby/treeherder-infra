@@ -44,13 +44,13 @@ echo "Puppet installed!"
 
 # ruby1.9.3 includes rubygems
 echo "Installing ruby..."
-apt-get install -y rubygems >/dev/null
-#apt-get install -y ruby 1.9.3 >/dev/null
-#update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby1.9.1 400 \
-#    --slave   /usr/share/man/man1/ruby.1.gz ruby.1.gz /usr/share/man/man1/ruby1.9.1.1.gz \
-#    --slave   /usr/bin/ri ri /usr/bin/ri1.9.1 \
-#    --slave   /usr/bin/irb irb /usr/bin/irb1.9.1 \
-#    --slave   /usr/bin/rdoc rdoc /usr/bin/rdoc1.9.1
+#apt-get install -y rubygems >/dev/null
+apt-get install -y ruby 1.9.3 >/dev/null
+update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby1.9.1 400 \
+    --slave   /usr/share/man/man1/ruby.1.gz ruby.1.gz /usr/share/man/man1/ruby1.9.1.1.gz \
+    --slave   /usr/bin/ri ri /usr/bin/ri1.9.1 \
+    --slave   /usr/bin/irb irb /usr/bin/irb1.9.1 \
+    --slave   /usr/bin/rdoc rdoc /usr/bin/rdoc1.9.1
 
 echo "Installing git..."
 apt-get install -y git >/dev/null
@@ -87,11 +87,11 @@ if [ "$(gem list -i '^r10k$')" = "false" ]; then
     gem install --no-ri --no-rdoc r10k >/dev/null
 fi
 
-#if [ "$(gem list -i '^librarian-puppet$')" = "false" ]; then
-#    echo "installing the 'librarian-puppet' gem"
-#    gem install --no-ri --no-rdoc librarian-puppet >/dev/null
-#fi
+if [ "$(gem list -i '^librarian-puppet$')" = "false" ]; then
+    echo "installing the 'librarian-puppet' gem"
+    gem install --no-ri --no-rdoc librarian-puppet >/dev/null
+fi
 
 echo "Making /usr/local/lib/site_ruby/facter..."
 mkdir -p /usr/local/lib/site_ruby/facter
-chmod 777 /usr/local/lib/site_ruby/facter
+chmod 755 /usr/local/lib/site_ruby/facter

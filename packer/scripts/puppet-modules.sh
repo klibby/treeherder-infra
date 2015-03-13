@@ -4,6 +4,9 @@
 
 set -e
 
+# work around file upload as ubuntu user
+cp /tmp/ec2tags.rb /usr/local/lib/site_ruby/facter/ec2tags.rb
+
 PUPPET_DIR=/etc/puppet/
 PUPPET_ENV_DIR=${PUPPET_DIR}/environments
 PUPPETFILE_SRC=/tmp/Puppetfile
@@ -27,4 +30,4 @@ echo "copying ${PUPPETFILE_SRC} to ${PUPPET_DIR}"
 cp ${PUPPETFILE_SRC} ${PUPPET_DIR}
 
 echo "Installing puppet modules..."
-cd ${PUPPET_DIR} && r10k puppetfile install
+cd ${PUPPET_DIR} && librarian-puppet install
