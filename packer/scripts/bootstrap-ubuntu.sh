@@ -95,3 +95,7 @@ fi
 echo "Making /usr/local/lib/site_ruby/facter..."
 mkdir -p /usr/local/lib/site_ruby/facter
 chmod 755 /usr/local/lib/site_ruby/facter
+
+echo "Enabling password-less sudo..."
+sed -i -e 's/%sudo\sALL=(ALL:ALL) ALL/%sudo\tALL=NOPASSWD:ALL/g' /etc/sudoers
+

@@ -6,7 +6,6 @@
     "description": "Treeherder celery worker, Ubuntu 12.04 x64",
     "builders": [
         {
-            "name": "treeherder_worker_ubuntu_1204",
             "type": "amazon-ebs",
             "access_key": "{{user `aws_access_key`}}",
             "secret_key": "{{user `aws_secret_key`}}",
@@ -15,7 +14,7 @@
             "instance_type": "t2.medium",
             "iam_instance_profile": "ec2-read-tags",
             "ssh_username": "ubuntu",
-            "ami_name": "treeherder_worker__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
+            "ami_name": "treeherder__ssd__ubuntu-12.04__{{isotime \"20060102\"}}",
             "tags": {
                 "name": "treeherder-image",
                 "app": "treeherder",
@@ -24,14 +23,69 @@
                 "os_version": "ubuntu",
                 "release": "12.04"
             }
+        },
+        {
+            "type": "virtualbox-iso",
+            "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.4-server-amd64.iso",
+            "iso_checksum": "3aeb42816253355394897ae80d99a9ba56217c0e98e05294b51f0f5b13bceb54",
+            "iso_checksum_type": "sha256",
+            "boot_command": [
+                "<esc><wait>",
+                "<esc><wait>",
+                "<enter><wait>",
+                "/install/vmlinuz<wait>",
+                " auto<wait>",
+                " console-setup/ask_detect=false<wait>",
+                " console-setup/layoutcode=us<wait>",
+                " console-setup/modelcode=pc105<wait>",
+                " debconf/frontend=noninteractive<wait>",
+                " debian-installer=en_US<wait>",
+                " fb=false<wait>",
+                " initrd=/install/initrd.gz<wait>",
+                " kbd-chooser/method=us<wait>",
+                " keyboard-configuration/layout=USA<wait>",
+                " keyboard-configuration/variant=USA<wait>",
+                " locale=en_US<wait>",
+                " netcfg/get_hostname=ubuntu-1204<wait>",
+                " netcfg/get_domain=vagrantup.com<wait>",
+                " noapic<wait>",
+                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+                " -- <wait>",
+                "<enter><wait>"
+            ],
+            "boot_wait": "10s",
+            "disk_size": 40960,
+            "guest_os_type": "Ubuntu_64",
+            "http_directory": "http",
+            "shutdown_command": "echo 'ubuntu' | sudo -S shutdown -P now",
+            "ssh_username": "ubuntu",
+            "ssh_password": "ubuntu",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "20m",
+            "vboxmanage": [
+                [ "modifyvm", "{{.Name}}", "--memory", "512" ],
+                [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+            ]
         }
     ],
     "provisioners": [
         {
             "type": "shell",
             "script": "scripts/bootstrap-ubuntu.sh",
-            "execute_command": "sudo -E sh '{{ .Path }}'",
+            "execute_command": "echo 'ubuntu' | sudo -SE sh '{{ .Path }}'",
             "pause_before": "30s"
+        },
+        {
+            "type": "shell",
+            "execute_command": "sudo -E sh '{{ .Path }}'",
+            "override": {
+                "amazon-ebs": {
+                    "inline": "true"
+                },
+                "virtualbox-iso": {
+                    "script": "scripts/vbox.sh"
+                }
+            }
         },
         {
             "type": "file",
@@ -52,7 +106,7 @@
             "type": "puppet-masterless",
             "manifest_file": "../puppet/manifests/default.pp",
             "module_paths": [
-                "../puppet/modules"
+"../puppet/modules"
             ],
             "facter": {
                 "packer_profile": "builder"
@@ -62,7 +116,12 @@
     "post-processors": [
         {
             "type": "vagrant",
-            "keep_input_artifact": true
+            "keep_input_artifact": true,
+            "override": {
+                "virtualbox": {
+                    "output": "packer_treeherder_ubuntu_1204_virtualbox.box"
+                  }
+            }
         }
     ]
 }

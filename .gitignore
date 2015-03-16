@@ -1,6 +1,8 @@
 credentials.json
 terraform.tfvars
 terraform.tfstate*
+packer_cache
+output-virtualbox-iso
 *.pem
 *.swp
 *.plan
