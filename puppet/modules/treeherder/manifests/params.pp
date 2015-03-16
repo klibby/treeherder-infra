@@ -1,4 +1,8 @@
 class treeherder::params {
-  $package_ensure = 'present'
-  $service_enable = 'disable'
+  $enable    = false
+  $ensure    = false
+  $domain    = 'localhost'
+  $app_root  = '/data'
+  $user      = 'treeherder'
+  $group     = 'treeherder'
 }
