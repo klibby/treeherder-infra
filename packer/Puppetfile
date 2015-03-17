@@ -1,6 +1,6 @@
 forge "https://forgeapi.puppetlabs.com"
 
-mod 'puppetlabs/apache'
+mod 'puppetlabs/stdlib'
 mod 'puppetlabs/mysql'
 mod 'fsalum/newrelic'
 mod 'puppetlabs/rabbitmq'
