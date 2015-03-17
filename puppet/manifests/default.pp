@@ -4,42 +4,22 @@ Exec {
 
 node default {
 
-  # only install if run by packer
+  # packer does the initial install
   if $::packer_profile == 'builder' {
     include treeherder::install
   }
 
-  # should use generic var, which can be then be set to type by ec2 tags or docker foo
-  # use to set treeherder::node_type
-  #class {
-  #  'treeherder':
-  #    environ   => 'staging',
-  #    node_type => '',
-  #}
+  # must be a cleaner way...
+  if $::ec2_tag_type != '' or $::ec2_tag_type == 'all' {
+    $node_type = $::ec2_tag_type
+  } else {
+    $node_type = ['admin', 'etl', 'processor', 'rabbitmq', 'web']
+  }
 
-  #case $::ec2_tag_type {
-  #  'admin': {
-  #    include treeherder::foo
-  #  }
-  #
-  #  'etl': {
-  #    include treeherder::foo
-  #  }
-  #
-  #  'processor': {
-  #    include treeherder::foo
-  #  }
-  #
-  #  'rabbitmq': {
-  #    include treeherder::foo
-  #  }
-  #
-  #  'web': {
-  #    include treeherder::foo
-  #  }
-  #
-  #  default: {
-  #    err("${::ec2_tag_type} is unknown or not a valid type.")
-  #    fail('Invalid ec2_tag_type.')
-  #  }
+  class {
+    'treeherder':
+      environ   => 'stage',
+      node_type => "$node_type"
+  }
+
 }
