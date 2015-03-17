@@ -12,6 +12,7 @@ class treeherder (
   # how does this affect services, etc in ::install?
   #require treeherder::install
 
+  validate_array($node_type)
   if ! ($node_type in [ 'admin', 'web', 'etl', 'rabbitmq', 'flower', 'processor' ]) {
     fail("\"${node_type}\" is not a valid node_type value.")
   }

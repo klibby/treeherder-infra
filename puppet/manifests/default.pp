@@ -19,7 +19,7 @@ node default {
   class {
     'treeherder':
       environ   => 'stage',
-      node_type => "$node_type"
+      node_type => $node_type
   }
 
 }
