@@ -22,6 +22,7 @@ class treeherder::install {
       'libmysqlclient-dev',
       'make',
       'apache2',
+      'apache2-dev',
       'rabbitmq-server',
       'supervisor',
     ]:
