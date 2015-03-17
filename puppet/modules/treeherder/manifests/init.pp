@@ -12,9 +12,11 @@ class treeherder (
   # how does this affect services, etc in ::install?
   #require treeherder::install
 
-  if ! ($node_type in [ 'admin', 'web', 'etl', 'rabbitmq', 'flower', 'log_processor' ]) {
+  if ! ($node_type in [ 'admin', 'web', 'etl', 'rabbitmq', 'flower', 'processor' ]) {
     fail("\"${node_type}\" is not a valid node_type value.")
   }
+
+  # newrelic
 
   if member($node_type, 'admin') {
     class { 'treeherder::admin': }
