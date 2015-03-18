@@ -21,12 +21,12 @@ class treeherder::web {
   }
 
   # installed by packer in treeherder::install
-  #package {
-  #  "$apache":
-  #    ensure => present;
-  #  "apache_dev":
-  #    ensure => present;
-  #}
+  package {
+    "$apache_service":
+      ensure => present;
+    "$apache_dev":
+      ensure => present;
+  }
 
   file {
     "${vhost_path}/treeherder-service.conf":
