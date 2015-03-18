@@ -7,12 +7,13 @@ class treeherder::rabbit {
   # how to handle multiple cluster nodes?
   class {
     '::rabbitmq':
-      repos_ensure      => false,
-      service_ensure    => "${treeherder::enable}",
-      config_cluster    => true,
-      cluster_nodes     => ['localhost'],
-      cluster_node_type => 'disk',
-      erlang_cookie     => 'ERLANG-rabbit-cookie',
+      repos_ensure             => false,
+      service_ensure           => "${treeherder::enable}",
+      config_cluster           => true,
+      cluster_nodes            => ['localhost'],
+      cluster_node_type        => 'disk',
+      erlang_cookie            => 'ERLANG-rabbit-cookie',
+      wipe_db_on_cookie_change => true,
   }
 
   rabbitmq_user {

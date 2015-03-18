@@ -36,6 +36,14 @@ class treeherder::install {
       provider => 'pip'
   }
 
+  # hack to work around puppet not finding it
+  file {
+    '/usr/local/bin/rabbitmq-plugins':
+      ensure  => link,
+      target  => '/usr/lib/rabbitmq/bin/rabbitmq-plugins',
+      require => Package['rabbitmq-server'];
+  }
+
   # hack; ubuntu insists on starting a service upon installation, configuring it be damned
   service { 
     'apache2':
