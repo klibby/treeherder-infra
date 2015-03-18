@@ -1,0 +1,30 @@
+alias python='/usr/bin/python2.7'
+alias pip='/usr/bin/pip2.7'
+alias easy_install='/usr/bin/easy_install-2.7'
+
+export TREEHERDER_DATABASE_NAME=<%= scope.lookupvar('treeherder::db_name') %>
+export TREEHERDER_DATABASE_USER=<%= scope.lookupvar('treeherder::db_rw_user') %>
+export TREEHERDER_DATABASE_PASSWORD=<%= scope.lookupvar('treeherder::db_rw_pass') %>
+export TREEHERDER_DATABASE_HOST=<%= scope.lookupvar('treeherder::db_rw_host') %>
+export TREEHERDER_DATABASE_PORT=3306
+export TREEHERDER_RO_DATABASE_USER=<%= scope.lookupvar('treeherder::db_ro_user') %>
+export TREEHERDER_RO_DATABASE_PASSWORD=<%= scope.lookupvar('treeherder::db_ro_pass') %>
+export TREEHERDER_RO_DATABASE_HOST=<%= scope.lookupvar('treeherder::db_ro_host') %>
+export TREEHERDER_RO_DATABASE_PORT=3306
+export TREEHERDER_DEBUG='1'
+export TREEHERDER_DJANGO_SECRET_KEY=<%= scope.lookupvar('treeherder::django_secret') %>
+export TREEHERDER_MEMCACHED='<% scope.lookupvar('treeherder::web_nodes').each do |node| %><%= node %>:11211,<% end %>'
+export TREEHERDER_MEMCACHED_KEY_PREFIX='treeherder'
+export TREEHERDER_RABBITMQ_USER=<%= scope.lookupvar('treeherder::rabbitmq_user') %>
+export TREEHERDER_RABBITMQ_PASSWORD=<%= scope.lookupvar('treeherder::rabbitmq_pass') %>
+export TREEHERDER_RABBITMQ_VHOST=<%= scope.lookupvar('treeherder::rabbitmq_vhost') %>
+export TREEHERDER_RABBITMQ_HOST=<%= scope.lookupvar('treeherder::rabbitmq_host') %>
+export TREEHERDER_RABBITMQ_PORT=5672
+export NEW_RELIC_LOG='stderr'
+export NEW_RELIC_APP_NAME='<%= scope.lookupvar('treeherder::treeherder_domain') %>'
+export NEW_RELIC_LICENSE_KEY=''
+export NEW_RELIC_ENVIRONMENT='development'
+export PULSE_EXCHANGE_NAMESPACE='<%= scope.lookupvar('treeherder::pulse_user') %>'
+export PULSE_URI='amqp://<%= scope.lookupvar('treeherder::pulse_user') %>:<%= scope.lookupvar('treeherder::pulse_pass') %>@pulse.mozilla.org:5671?ssl=true'
+export TBPLBOT_EMAIL=''
+export TBPLBOT_PASSWORD=''

@@ -19,6 +19,12 @@ class treeherder (
     fail("\"${node_type}\" is not a valid node_type value.")
   }
 
+  file {
+    '/etc/profile.d/treeherder.sh':
+      ensure  => present,
+      content => template("${module_name}/profile.sh.erb");
+  }
+
   # newrelic
 
   # supervisor setup
