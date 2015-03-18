@@ -42,6 +42,9 @@ echo "Installing Puppet..."
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install puppet >/dev/null
 echo "Puppet installed!"
 
+echo "Setting puppet permissions..."
+chown -R ubuntu /etc/puppet
+
 # ruby1.9.3 includes rubygems
 echo "Installing ruby..."
 #apt-get install -y rubygems >/dev/null

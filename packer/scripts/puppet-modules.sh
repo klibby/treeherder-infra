@@ -32,5 +32,3 @@ cp ${PUPPETFILE_SRC} ${PUPPET_DIR}
 echo "Installing puppet modules..."
 cd ${PUPPET_DIR} && librarian-puppet install
 
-echo "copying default.pp to ${PUPPET_DIR}/manifests"
-cp /tmp/packer-puppet-masterless/manifests/default.pp ${PUPPET_DIR}/manifests/

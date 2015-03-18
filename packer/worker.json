@@ -104,9 +104,10 @@
         },
         {
             "type": "puppet-masterless",
+            "staging_directory": "/etc/puppet",
             "manifest_file": "../puppet/manifests/default.pp",
             "module_paths": [
-"../puppet/modules"
+                "../puppet/modules"
             ],
             "facter": {
                 "packer_profile": "builder"
