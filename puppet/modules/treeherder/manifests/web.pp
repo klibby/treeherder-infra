@@ -40,7 +40,9 @@ class treeherder::web {
   }
   
   exec {
-    "sed -i '/[: ]80$/ s/80/8080/' ${port_file}":
+    'set_http_listen_port':
+      path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+      command => "sed -i '/[: ]80$/ s/80/8080/' ${port_file}",
       require => Package["${apache_dev}"],
       before  => Service["${apache_service}"];
   }
@@ -55,15 +57,21 @@ class treeherder::web {
   # by default ubuntu doesn't have these modules enabled
   if $operatingsystem == 'ubuntu'{
     exec {
-      'a2enmod rewrite':
-        onlyif => 'test ! -e /etc/apache2/mods-enabled/rewrite.load',
-        before => Service["${apache_service}"];
-      'a2enmod proxy':
-        onlyif => 'test ! -e /etc/apache2/mods-enabled/proxy.load',
-        before => Service["${apache_service}"];
-      'a2enmod proxy_http':
-        onlyif => 'test ! -e /etc/apache2/mods-enabled/proxy_http.load',
-        before => Service["${apache_service}"];
+      'a2enmod_rewrite':
+        path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+        command => 'a2enmod rewrite',
+        onlyif  => 'test ! -e /etc/apache2/mods-enabled/rewrite.load',
+        before  => Service["${apache_service}"];
+      'a2enmod_proxy':
+        path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+        command => 'a2enmod proxy',
+        onlyif  => 'test ! -e /etc/apache2/mods-enabled/proxy.load',
+        before  => Service["${apache_service}"];
+      'a2enmod_proxy_http':
+        path    => '/bin:/usr/bin:/sbin:/usr/sbin',
+        command => 'a2enmod proxy_http',
+        onlyif  => 'test ! -e /etc/apache2/mods-enabled/proxy_http.load',
+        before  => Service["${apache_service}"];
     }
   }
 }
