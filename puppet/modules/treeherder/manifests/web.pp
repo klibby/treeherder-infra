@@ -39,6 +39,12 @@ class treeherder::web {
       content => template("${module_name}/httpd/treeherder-service.conf")
   }
   
+  file {
+    '/var/www/robots.txt':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/robots.txt";
+  }
+
   exec {
     'set_http_listen_port':
       path    => '/bin:/usr/bin:/sbin:/usr/sbin',
