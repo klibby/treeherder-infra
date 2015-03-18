@@ -13,7 +13,9 @@ class treeherder (
   #require treeherder::install
 
   validate_array($node_type)
-  if ! ($node_type in [ 'admin', 'web', 'etl', 'rabbitmq', 'flower', 'processor' ]) {
+  $known_types = [ 'admin', 'web', 'etl', 'rabbitmq', 'flower', 'processor' ]
+
+  if inline_template('<%= @node_type.all?{ |type| @known_types.member?(type) } ? "true" : "false" %>') != 'true' {
     fail("\"${node_type}\" is not a valid node_type value.")
   }
 
