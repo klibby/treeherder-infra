@@ -1,6 +1,8 @@
 class treeherder::params {
-  $enable    = false
-  $ensure    = false
+  # controls managed resources; present/absent
+  $ensure    = 'present'
+  # controls status of services: running/stopped
+  $enable    = 'stopped'
   $domain    = 'localhost'
   $app_root  = '/data'
   $user      = 'treeherder'

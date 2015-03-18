@@ -6,12 +6,11 @@ define treeherder::job (
   $stopwaitsecs = '90',
 ) {
   # set autostart/autorestart based on ::enable?
-  # ensure/ensure_process = [ 'running', 'stopped', 'removed' ]
   supervisord::program {
     "${name}":
       command        => "${cmd_path}/${name}",
-      #ensure         => "${treeherder::ensure}",
-      #ensure_process => "${treeherder::enable}",
+      ensure         => "${treeherder::enable}",
+      ensure_process => "${treeherder::ensure}",
       user           => "${jobuser}",
       directory      => "${app_dir}",
       stopsignal     => "${stopsignal}",

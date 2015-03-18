@@ -54,7 +54,9 @@ class treeherder::web {
   }
 
   treeherder::job {
-    'run_gunicorn':;
+    'run_gunicorn':
+        enable => "${treeherder::enable}",
+        ensure => "${treeherder::ensure}";
   }
 
   service {
