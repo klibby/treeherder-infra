@@ -41,19 +41,36 @@ class treeherder (
     class { 'treeherder::admin': }
   }
   if member($node_type, 'etl') {
-    class { 'treeherder::etl': }
+    treeherder::job {
+      'run_celery_worker_buildapi':
+        enable => "${treeherder::enable}",
+        ensure => "${treeherder::ensure}";
+
+      'run_celery_worker_pushlog':
+        enable => "${treeherder::enable}",
+        ensure => "${treeherder::ensure}";
+    }
   }
   if member($node_type, 'flower') {
     class { 'treeherder::flower': }
   }
   if member($node_type, 'processor') {
-    class { 'treeherder::processor': }
+    treeherder::job {
+      'run_celery_worker_log_parser':
+        enable => "${treeherder::enable}",
+        ensure => "${treeherder::ensure}";
+    }
   }
   if member($node_type, 'rabbitmq') {
     class { 'treeherder::rabbit': }
   }
   if member($node_type, 'web') {
     class { 'treeherder::web': }
+    treeherder::job {
+      'run_gunicorn':
+        enable => "${treeherder::enable}",
+        ensure => "${treeherder::ensure}";
+    }
   }
 
 }
