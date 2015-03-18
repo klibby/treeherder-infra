@@ -9,7 +9,7 @@ mod 'ajcrowe/supervisord'
 mod 'mozilla/treeherder',
     :git => "https://github.com/klibby/treeherder-infra.git",
     :ref => 'buildtest',
-    :path => "puppet/modules"
+    :path => "puppet/modules/treeherder"
 
 # flower/nginx
 # vcsrepo?
