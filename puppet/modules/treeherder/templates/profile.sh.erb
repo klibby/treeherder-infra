@@ -13,7 +13,7 @@ export TREEHERDER_RO_DATABASE_HOST=<%= scope.lookupvar('treeherder::db_ro_host')
 export TREEHERDER_RO_DATABASE_PORT=3306
 export TREEHERDER_DEBUG='1'
 export TREEHERDER_DJANGO_SECRET_KEY=<%= scope.lookupvar('treeherder::django_secret') %>
-export TREEHERDER_MEMCACHED='<% scope.lookupvar('treeherder::web_nodes').each do |node| %><%= node %>:11211,<% end %>'
+export TREEHERDER_MEMCACHED=''
 export TREEHERDER_MEMCACHED_KEY_PREFIX='treeherder'
 export TREEHERDER_RABBITMQ_USER=<%= scope.lookupvar('treeherder::rabbitmq_user') %>
 export TREEHERDER_RABBITMQ_PASSWORD=<%= scope.lookupvar('treeherder::rabbitmq_pass') %>
