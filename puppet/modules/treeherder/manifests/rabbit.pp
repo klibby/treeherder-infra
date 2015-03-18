@@ -8,7 +8,7 @@ class treeherder::rabbit {
   class {
     '::rabbitmq':
       manage_repos      => false,
-      service_ensure    => "${treeherder::ensure}",
+      service_ensure    => "${treeherder::enable}",
       config_cluster    => true,
       cluster_nodes     => ['localhost'],
       cluster_node_type => 'disk',
