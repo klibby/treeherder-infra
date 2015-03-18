@@ -55,10 +55,11 @@ class treeherder::web {
 
   service {
     "$apache_service":
-      ensure  => running,
-      enable  => true,
+      ensure  => "${treeherder::ensure}",
+      enable  => "${treeherder::enable}",
       require => File["${vhost_path}/treeherder-service.conf"];
   }
+
 
   # by default ubuntu doesn't have these modules enabled
   if $operatingsystem == 'ubuntu'{
