@@ -81,6 +81,7 @@ class treeherder::install {
     'checkout_treeherder_service':
       command => 'git clone https://github.com/mozilla/treeherder-service',
       cwd     => '/data',
+      user    => 'treeherder',
       path    => '/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin',
       unless  => 'test -f /data/treeherder-service/.git/index',
       require => [ Package['git'], File['/data'] ];
@@ -90,6 +91,7 @@ class treeherder::install {
     'checkout_treeherder_ui':
       command => 'git clone https://github.com/mozilla/treeherder-ui',
       cwd     => '/data',
+      user    => 'treeherder',
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       unless  => 'test -f /data/treeherder-ui/.git/index',
       require => [ Package['git'], File['/data'] ];
