@@ -27,7 +27,8 @@ class treeherder (
       package_provider => 'apt',
       service_name     => 'supervisor',
       install_init     => false,
-      executable_path  => '/usr/bin';
+      executable_path  => '/usr/bin',
+      executable_ctl   => '/usr/bin/supervisorctl';
   }
 
   if member($node_type, 'admin') {

@@ -53,6 +53,10 @@ class treeherder::web {
       before  => Service["${apache_service}"];
   }
 
+  treeherder::job {
+    'run_gunicorn':;
+  }
+
   service {
     "$apache_service":
       ensure  => "${treeherder::ensure}",
