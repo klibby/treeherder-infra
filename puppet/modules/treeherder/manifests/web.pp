@@ -53,10 +53,15 @@ class treeherder::web {
       before  => Service["${apache_service}"];
   }
 
+  # ensure (running) = stopped/running
+  # enable (run at boot) = true, false
   service {
     "$apache_service":
-      ensure  => "${treeherder::ensure}",
-      enable  => "${treeherder::enable}",
+      ensure      => "${treeherder::enable}",
+      enable      => $treeherder::enable ? {
+        'stopped' => false,
+        'running' => true,
+      },
       require => File["${vhost_path}/treeherder-service.conf"];
   }
 
