@@ -7,7 +7,7 @@ class treeherder::rabbit {
   # how to handle multiple cluster nodes?
   class {
     '::rabbitmq':
-      manage_repos      => false,
+      repos_ensure      => false,
       service_ensure    => "${treeherder::enable}",
       config_cluster    => true,
       cluster_nodes     => ['localhost'],
