@@ -21,6 +21,15 @@ class treeherder (
 
   # newrelic
 
+  # supervisor setup
+  class {
+    'supervisord':
+      package_provider => 'apt',
+      service_name     => 'supervisor',
+      install_init     => false,
+      executable_path  => '/usr/bin';
+  }
+
   if member($node_type, 'admin') {
     class { 'treeherder::admin': }
   }
