@@ -25,6 +25,7 @@ class treeherder::install {
       'apache2-dev',
       'rabbitmq-server',
       'supervisor',
+      'erlang-base',
     ]:
       ensure => present;
   }
@@ -96,6 +97,8 @@ class treeherder::install {
       unless  => 'test -f /data/treeherder-ui/.git/index',
       require => [ Package['git'], File['/data'] ];
   }
+
+  # manage.py export_project_credentials ?
 
   # I think this will eventually be wrapped up into one file in the -service repo
   # current as of bfb7f690b708b9474b365332c6a06fcbaaee479c
